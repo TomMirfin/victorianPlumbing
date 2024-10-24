@@ -77,4 +77,6 @@ export interface ListingCardProps {
   productName: string;
   price: Price;
   image: Image;
+  score: number;
+  cultureCode: string;
 }

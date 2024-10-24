@@ -29,6 +29,8 @@ export default function Toilets() {
             price={product.price}
             image={product.image}
             score={product.score}
+            cultureCode={product.cultureCode}
+            reviewsCount={product.reviewsCount}
           />
         ))}
     </div>
