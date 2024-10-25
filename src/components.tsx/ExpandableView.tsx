@@ -1,22 +1,36 @@
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronDownIcon from "@mui/icons-material/ChevronDown";
-import { IconButton } from "@mui/material";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { duration, IconButton } from "@mui/material";
+import { useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 export default function ExpandableView({
+  children,
   title,
-  options,
 }: {
   title: string;
-  options: string[];
+  children: React.ReactNode;
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const styles = useSpring({
+    opacity: isExpanded ? 1 : 0,
+    height: isExpanded ? "auto" : 0,
+    overflow: "hidden",
+    config: { duration: 500 },
+  });
+
   return (
-    <div>
-      <h1>{title}</h1>
-      <ul>
-        {options.map((option) => (
-          <li>{option}</li>
-        ))}
-      </ul>
+    <div className="border-b border-gray-300 ">
+      <div className="flex items-center justify-between">
+        <span className="font-semibold text-lg">{title}</span>
+        <IconButton onClick={() => setIsExpanded(!isExpanded)}>
+          {isExpanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowLeftIcon />}
+        </IconButton>
+      </div>
+      <animated.div style={styles}>
+        <div className="mt-2">{children}</div>
+      </animated.div>
     </div>
   );
 }

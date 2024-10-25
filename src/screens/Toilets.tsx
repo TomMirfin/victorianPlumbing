@@ -6,27 +6,32 @@ import ListingCard from "../components.tsx/ListingCard";
 import SortByComponent from "../components.tsx/SortByComponent";
 import PageSelector from "../components.tsx/PageSelector";
 import LoadingPage from "../components.tsx/LoadingPage";
+import { useSearchStore } from "../queryHooks.tsx/searchStore";
 
 export default function Toilets() {
   const { mutate: searchListing, listing } = useGetListing();
+  const searchStore = useSearchStore();
 
-  const { pathname } = useLocation();
-  const [selectedOption, setSelectedOption] = useState("1");
   const [additionalPages, setAdditionalPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const handleSelectChange = (e: { value: string; label: string }) => {
-    setSelectedOption(e.value);
+    searchStore.setSort(e.value);
   };
 
   useEffect(() => {
     searchListing({
       query: "toilets",
-      pageNumber: pageNumber,
-      size: 0,
-      additionalPages: pageNumber,
-      sort: +selectedOption,
+      pageNumber: searchStore.pageNumber,
+      size: searchStore.size,
+      additionalPages: searchStore.additionalPages,
+      sort: +searchStore.sort,
     });
-  }, [pathname, selectedOption, pageNumber]);
+  }, [
+    searchStore.pageNumber,
+    searchStore.size,
+    searchStore.additionalPages,
+    searchStore.sort,
+  ]);
   console.log(listing);
 
   if (!listing) {
@@ -38,7 +43,7 @@ export default function Toilets() {
       <div className={`flex flex-row align-middle gap-20`}>
         <SortByComponent
           handleSelectChange={handleSelectChange}
-          selectedOption={selectedOption}
+          selectedOption={searchStore.sort}
         />
         <div className="flex justify-center flex-row gap-2">
           <PageSelector setPageNumber={setPageNumber} pageNumber={pageNumber} />
@@ -68,7 +73,9 @@ export default function Toilets() {
       <div className="flex justify-center mt-10">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => setAdditionalPages(additionalPages + 1)}
+          onClick={() =>
+            searchStore.setAdditionalPages(searchStore.additionalPages + 1)
+          }
         >
           Load More
         </button>

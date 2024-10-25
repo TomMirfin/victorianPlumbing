@@ -1,12 +1,8 @@
-import React from "react";
+import { useSearchStore } from "../queryHooks.tsx/searchStore";
 
-export default function PageSelector({
-  setPageNumber,
-  pageNumber,
-}: {
-  setPageNumber: (page: number) => void;
-  pageNumber: number;
-}) {
+export default function PageSelector() {
+  const setPageNumber = useSearchStore((state) => state.setPageNumber);
+  const pageNumber = useSearchStore((state) => state.pageNumber);
   const pageNumbers = [1, 2, 3, 4, 5];
   return (
     <div className="flex flex-col">
