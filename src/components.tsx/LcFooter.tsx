@@ -31,7 +31,7 @@ export default function LcFooter({
       <img
         src={brandImage}
         alt="brand"
-        className="absolute bottom-0 right-2 h-8"
+        className="absolute bottom-0 right-0 h-8"
       />
     </div>
   );

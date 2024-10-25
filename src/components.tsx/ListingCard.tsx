@@ -13,8 +13,6 @@ export default function ListingCard({
   isBestSeller,
   brandImage,
 }: ListingCardProps) {
-  console.log(isBestSeller);
-
   return (
     <div>
       <LcImage image={image} isBestSeller={isBestSeller} />

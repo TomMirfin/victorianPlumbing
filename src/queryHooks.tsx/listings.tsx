@@ -14,6 +14,7 @@ export const useGetListing = () => {
     mutate,
     data: listing,
     isError,
+    isPending,
   } = useMutation({
     mutationKey: ["listing"],
     mutationFn: (data: Listing) =>
@@ -21,5 +22,5 @@ export const useGetListing = () => {
         return res;
       }),
   });
-  return { mutate, listing, isError };
+  return { mutate, listing, isError, isPending };
 };
