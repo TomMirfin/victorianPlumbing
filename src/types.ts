@@ -29,7 +29,7 @@ interface Image {
   };
 }
 
-interface Price {
+export interface Price {
   currencyCode: string;
   priceIncTax: number;
   priceExcTax: number;
@@ -79,4 +79,7 @@ export interface ListingCardProps {
   image: Image;
   score: number;
   cultureCode: string;
+  reviewsCount: number;
+  isBestSeller: boolean;
+  brandImage: string;
 }
