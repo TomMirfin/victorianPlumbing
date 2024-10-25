@@ -15,20 +15,27 @@ interface Listing {
     size: Number;
     additionalPages: Number;
     sort: Number;
+    facets: any;
   };
 }
 
 export const getListing = async ({ body }: Listing) => {
-  const { query, pageNumber, size, additionalPages, sort } = body;
+  const { query, pageNumber, size, additionalPages, sort, facets } = body;
+  console.log(facets, "facets");
+  const data = {
+    query: query,
+    pageNumber: pageNumber,
+    size: size,
+    additionalPages: additionalPages,
+    sort: sort,
+    facets: facets,
+  };
+
+  console.log(data, "data");
 
   try {
-    const response = await API.post("", {
-      query: query,
-      pageNumber: pageNumber,
-      size: size,
-      additionalPages: additionalPages,
-      sort: sort,
-    });
+    const response = await API.post("", data);
+    console.log(response.data, "response");
     return response.data;
   } catch (error) {
     console.error(error);

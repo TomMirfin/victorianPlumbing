@@ -12,7 +12,6 @@ export default function Toilets() {
   const { mutate: searchListing, listing } = useGetListing();
   const searchStore = useSearchStore();
 
-  const [additionalPages, setAdditionalPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
   const handleSelectChange = (e: { value: string; label: string }) => {
     searchStore.setSort(e.value);
@@ -25,14 +24,17 @@ export default function Toilets() {
       size: searchStore.size,
       additionalPages: searchStore.additionalPages,
       sort: +searchStore.sort,
+      facets: searchStore.facetSearch,
     });
   }, [
     searchStore.pageNumber,
     searchStore.size,
     searchStore.additionalPages,
     searchStore.sort,
+    searchStore.facetSearch,
   ]);
   console.log(listing);
+  console.log(searchStore.facetSearch, "facetSearch");
 
   if (!listing) {
     return <LoadingPage />;
@@ -46,13 +48,13 @@ export default function Toilets() {
           selectedOption={searchStore.sort}
         />
         <div className="flex justify-center flex-row gap-2">
-          <PageSelector setPageNumber={setPageNumber} pageNumber={pageNumber} />
+          <PageSelector />
         </div>
       </div>
 
       <div className="justify-around flex flex-row flex-wrap gap-5">
         {listing ? (
-          listing.products.map((product: ProductType) => (
+          listing?.products?.map((product: ProductType) => (
             <ListingCard
               key={product.id}
               productName={product.productName}
