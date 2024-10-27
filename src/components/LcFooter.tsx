@@ -19,20 +19,17 @@ export default function LcFooter({
   return (
     <div className={`flex flex-row items-center text-xs relative`}>
       <CardNameAndPrice
+        brandImage={brandImage}
         productName={productName}
         price={price}
         cultureCode={cultureCode}
       />
+
       {reviewsCount > 0 && (
         <div className="absolute bottom-0 left-2 ">
           <CardRating score={score} reviewsCount={reviewsCount} />
         </div>
       )}
-      <img
-        src={brandImage}
-        alt="brand"
-        className="absolute bottom-0 right-0 h-8"
-      />
     </div>
   );
 }

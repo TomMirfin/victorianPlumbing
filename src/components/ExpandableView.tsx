@@ -1,9 +1,8 @@
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { duration, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
-
+import RemoveIcon from "@mui/icons-material/Remove";
 export default function ExpandableView({
   children,
   title,
@@ -11,7 +10,7 @@ export default function ExpandableView({
   title: string;
   children: React.ReactNode;
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const styles = useSpring({
     opacity: isExpanded ? 1 : 0,
@@ -21,11 +20,13 @@ export default function ExpandableView({
   });
 
   return (
-    <div className="border-b border-gray-300 ">
-      <div className="flex items-center justify-between">
-        <span className="font-semibold text-lg">{title}</span>
+    <div className="border-b border-gray-300 mb-2  bg-white p-2 w-52">
+      <div className="flex  justify-evenly">
+        <span className="font-semibold text-lg text-black border-b-2 w-full">
+          {title}
+        </span>
         <IconButton onClick={() => setIsExpanded(!isExpanded)}>
-          {isExpanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowLeftIcon />}
+          {isExpanded ? <RemoveIcon /> : <AddIcon />}
         </IconButton>
       </div>
       <animated.div style={styles}>

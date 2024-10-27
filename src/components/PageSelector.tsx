@@ -1,4 +1,4 @@
-import { useSearchStore } from "../queryHooks.tsx/searchStore";
+import { useSearchStore } from "../queryHooks/searchStore";
 
 export default function PageSelector() {
   const setPageNumber = useSearchStore((state) => state.setPageNumber);

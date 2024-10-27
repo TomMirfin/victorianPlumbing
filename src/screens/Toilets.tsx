@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useGetListing } from "../queryHooks.tsx/listings";
+import { useGetListing } from "../queryHooks/listings";
 import { ProductType } from "../types";
-import ListingCard from "../components.tsx/ListingCard";
-import SortByComponent from "../components.tsx/SortByComponent";
-import PageSelector from "../components.tsx/PageSelector";
-import LoadingPage from "../components.tsx/LoadingPage";
-import { useSearchStore } from "../queryHooks.tsx/searchStore";
+import ListingCard from "../components/ListingCard";
+import SortByComponent from "../components/SortByComponent";
+import PageSelector from "../components/PageSelector";
+import LoadingPage from "../components/LoadingPage";
+import { useSearchStore } from "../queryHooks/searchStore";
 
 export default function Toilets() {
   const { mutate: searchListing, listing } = useGetListing();
@@ -29,10 +29,10 @@ export default function Toilets() {
   if (!listing) {
     return <LoadingPage />;
   }
-
+  console.log(listing);
   return (
-    <div className="mt-10">
-      <div className={`flex flex-row align-middle gap-20`}>
+    <div className="mt-14 pb-14">
+      <div className={`flex flex-row align-middle gap-4`}>
         <SortByComponent
           handleSelectChange={handleSelectChange}
           selectedOption={searchStore.sort}
@@ -41,8 +41,10 @@ export default function Toilets() {
           <PageSelector />
         </div>
       </div>
-
-      <div className="justify-around flex flex-row flex-wrap gap-5">
+      <p className="text-md text-black flex justify-start mr-32 mb-2">
+        {listing?.pagination.total.toString() + " Results"}
+      </p>
+      <div className="flex flex-row flex-wrap gap-4">
         {listing &&
           listing?.products?.map((product: ProductType) => (
             <ListingCard
@@ -58,8 +60,11 @@ export default function Toilets() {
             />
           ))}
       </div>
-
-      <div className="flex justify-center mt-10">
+      <p className="align-middle items-center text-center text-black mt-20">
+        showing {listing?.pagination.size} of {listing?.pagination.total}{" "}
+        results
+      </p>
+      <div className="flex justify-center mt-2">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           onClick={() =>

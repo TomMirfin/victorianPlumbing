@@ -1,18 +1,18 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toilets from "./screens/Toilets";
-import FilterComponent from "./components.tsx/FilterComponent";
+import FilterComponent from "./components/FilterComponent";
 import "./App.css";
 function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <div className="grid grid-cols-7 h-screen">
+        <div className="grid grid-cols-4 h-screen">
           <div className="col-span-1">
             <FilterComponent />
           </div>
-          <div className="col-span-6">
+          <div className="col-span-3">
             <Routes>
               <Route path="/" element={<Toilets />} />
             </Routes>

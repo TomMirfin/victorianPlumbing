@@ -83,3 +83,18 @@ export interface ListingCardProps {
   isBestSeller: boolean;
   brandImage: string;
 }
+
+export type Option = {
+  value: string | number;
+  displayValue: string;
+  count: number;
+  identifier: string;
+};
+
+export type Facet = {
+  identifier: string;
+  displayName: string;
+  priority: number;
+  options: Option[];
+  facetType: number;
+};
