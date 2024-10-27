@@ -12,29 +12,19 @@ export default function Toilets() {
   const { mutate: searchListing, listing } = useGetListing();
   const searchStore = useSearchStore();
 
-  const [pageNumber, setPageNumber] = useState(1);
   const handleSelectChange = (e: { value: string; label: string }) => {
     searchStore.setSort(e.value);
   };
 
   useEffect(() => {
-    searchListing({
-      query: "toilets",
-      pageNumber: searchStore.pageNumber,
-      size: searchStore.size,
-      additionalPages: searchStore.additionalPages,
-      sort: +searchStore.sort,
-      facets: searchStore.facetSearch,
-    });
+    searchListing();
   }, [
-    searchStore.pageNumber,
-    searchStore.size,
-    searchStore.additionalPages,
     searchStore.sort,
+    searchStore.additionalPages,
     searchStore.facetSearch,
+    searchStore.query,
+    searchStore.pageNumber,
   ]);
-  console.log(listing);
-  console.log(searchStore.facetSearch, "facetSearch");
 
   if (!listing) {
     return <LoadingPage />;
@@ -53,7 +43,7 @@ export default function Toilets() {
       </div>
 
       <div className="justify-around flex flex-row flex-wrap gap-5">
-        {listing ? (
+        {listing &&
           listing?.products?.map((product: ProductType) => (
             <ListingCard
               key={product.id}
@@ -66,10 +56,7 @@ export default function Toilets() {
               isBestSeller={product.attributes.isBestSeller}
               brandImage={product.brand.brandImage.url}
             />
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
+          ))}
       </div>
 
       <div className="flex justify-center mt-10">

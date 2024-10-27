@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGetListing } from "../queryHooks.tsx/listings";
 import ExpandableView from "./ExpandableView";
 import { Checkbox } from "@mui/material";
@@ -6,36 +6,36 @@ import { useSearchStore } from "../queryHooks.tsx/searchStore";
 
 export default function FilterComponent() {
   const { mutate: searchListing, listing } = useGetListing();
-  const searchStore = useSearchStore();
   const setFacetSearch = useSearchStore((state) => state.setFacetSearch);
+  const facetSearch = useSearchStore((state) => state.facetSearch);
 
   useEffect(() => {
-    searchListing({
-      query: "toilets",
-      pageNumber: searchStore.pageNumber,
-      size: searchStore.size,
-      additionalPages: searchStore.additionalPages,
-      sort: +searchStore.sort,
-    });
-  }, [searchStore]);
+    searchListing();
+  }, []);
 
-  const handleSelection = (option: any, facet: any) => {
-    console.log(facet, "facet");
+  const handleSelection = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    option: any,
+    facet: any
+  ) => {
+    const isChecked = event.target.checked;
     const identifier = facet.identifier;
-    console.log(identifier, "option");
-    const query = {
-      [identifier]: [
-        {
-          value: {
-            identifier: option.identifier,
-            gte: option.value.gte,
-            lte: option.value.lte,
-          },
-        },
-      ],
-    };
 
-    setFacetSearch(query);
+    if (isChecked) {
+      const query = {
+        ...facetSearch,
+        [identifier]: [
+          {
+            value: option.value,
+          },
+        ],
+      };
+      setFacetSearch(query);
+    } else {
+      const updatedSearch = { ...facetSearch };
+      delete updatedSearch[identifier];
+      setFacetSearch(updatedSearch);
+    }
   };
 
   return (
@@ -46,9 +46,15 @@ export default function FilterComponent() {
             <div>
               {facet?.options?.map((option: any) => (
                 <div key={option.identifier} className="bg-slate-500 w-full">
-                  <div className="text-white text-sm my-2 flex flex-row justify-between align-middle">
-                    {option.displayValue}
-                    <Checkbox onChange={() => handleSelection(option, facet)} />
+                  <div className="text-white text-sm my-2 flex flex-row justify-between align-middle p-2">
+                    {facet.displayName === "Price"
+                      ? "£" + option.displayValue
+                      : "" + option.displayValue}
+                    <Checkbox
+                      onChange={(event) =>
+                        handleSelection(event, option, facet)
+                      }
+                    />
                   </div>
                 </div>
               ))}

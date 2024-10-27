@@ -21,7 +21,7 @@ interface Listing {
 
 export const getListing = async ({ body }: Listing) => {
   const { query, pageNumber, size, additionalPages, sort, facets } = body;
-  console.log(facets, "facets");
+
   const data = {
     query: query,
     pageNumber: pageNumber,
@@ -31,11 +31,9 @@ export const getListing = async ({ body }: Listing) => {
     facets: facets,
   };
 
-  console.log(data, "data");
-
   try {
     const response = await API.post("", data);
-    console.log(response.data, "response");
+
     return response.data;
   } catch (error) {
     console.error(error);

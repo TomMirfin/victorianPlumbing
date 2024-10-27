@@ -1,5 +1,5 @@
 import { ListingCardProps } from "../types";
-import Rating from "@mui/material/Rating";
+
 import LcImage from "./LcImage";
 import LcFooter from "./LcFooter";
 

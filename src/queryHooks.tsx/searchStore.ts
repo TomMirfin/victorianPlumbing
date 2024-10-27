@@ -11,8 +11,8 @@ interface SearchStore {
   setSize: (size: number) => void;
   setAdditionalPages: (additionalPages: number) => void;
   setSort: (sort: string) => void;
-  facetSearch: [];
-  setFacetSearch: (facetSearch: []) => void;
+  facetSearch: { [x: number]: { value: any }[] };
+  setFacetSearch: (facetSearch: { [x: number]: { value: any }[] }) => void;
 }
 
 export const useSearchStore = create<SearchStore>((set) => ({
@@ -27,5 +27,6 @@ export const useSearchStore = create<SearchStore>((set) => ({
   setSize: (size: number) => set({ size }),
   setAdditionalPages: (additionalPages: number) => set({ additionalPages }),
   setSort: (sort: string) => set({ sort }),
-  setFacetSearch: (facetSearch: []) => set({ facetSearch }),
+  setFacetSearch: (facetSearch: { [x: number]: { value: any }[] }) =>
+    set({ facetSearch }),
 }));
