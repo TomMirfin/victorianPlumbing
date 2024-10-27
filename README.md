@@ -29,7 +29,8 @@ Though not fully utilized here, Tanstack Query’s caching and optimistic render
 
 #### Next Steps:
 
-Dynamic url for pagination/filtering
+- Unable to track in stock or not, I can only see StockStatus "G" in the JSON
+- Dynamic url for pagination/filtering
 
 #### Note:
 
