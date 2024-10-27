@@ -6,7 +6,7 @@ import { getListingTypes } from "../types";
 export const useGetListing = () => {
   const searchStore = useSearchStore();
   const data = {
-    query: "toilets",
+    query: searchStore.query,
     pageNumber: searchStore.pageNumber,
     size: searchStore.size,
     additionalPages: searchStore.additionalPages,

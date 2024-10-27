@@ -14,7 +14,7 @@ function App() {
           </div>
           <div className="col-span-3">
             <Routes>
-              <Route path="/" element={<Toilets />} />
+              <Route path="/toilets" element={<Toilets />} />
             </Routes>
           </div>
         </div>
