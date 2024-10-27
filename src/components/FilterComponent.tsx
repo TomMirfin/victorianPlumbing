@@ -7,7 +7,9 @@ import { Facet, Option } from "../types";
 export default function FilterComponent() {
   const { mutate: searchListing, listing } = useGetListing();
   const setFacetSearch = useSearchStore((state) => state.setFacetSearch);
-  const facetSearch = useSearchStore((state) => state.facetSearch);
+  const facetSearch: { [key: string]: { value: string }[] } = useSearchStore(
+    (state) => state.facetSearch
+  );
 
   const [showMore, setShowMore] = useState<{ [key: string]: boolean }>({});
 
@@ -17,8 +19,8 @@ export default function FilterComponent() {
 
   const handleSelection = (
     event: React.ChangeEvent<HTMLInputElement>,
-    option: any,
-    facet: any
+    option: Option,
+    facet: Facet
   ) => {
     const isChecked = event.target.checked;
     const identifier = facet.identifier;
@@ -50,44 +52,34 @@ export default function FilterComponent() {
   return (
     <div className="sticks top-0 left-0 p-4 w-52 h-screen mt-40 rounded-lg">
       {listing &&
-        listing.facets.map(
-          (facet: Facet) => (
-            console.log(facet),
-            (
-              <ExpandableView key={facet.displayName} title={facet.displayName}>
-                {facet.options
-                  .slice(
-                    0,
-                    showMore[facet.identifier] ? facet.options.length : 5
-                  )
-                  .map((option: Option) => (
-                    <div
-                      key={option.identifier}
-                      className="flex items-center justify-between"
-                    >
-                      <span className="text-black text-sm">
-                        {facet.displayName === "Price"
-                          ? "£" + option.displayValue
-                          : option.displayValue}
-                      </span>
-                      <Checkbox
-                        onChange={(event) =>
-                          handleSelection(event, option, facet)
-                        }
-                      />
-                    </div>
-                  ))}
-                {facet.options.length > 5 && (
-                  <div className="text-black bg-gray-200 font-bold p-2 text-center">
-                    <button onClick={() => toggleShowMore(facet.identifier)}>
-                      {showMore[facet.identifier] ? "Show Less" : "Show More"}
-                    </button>
-                  </div>
-                )}
-              </ExpandableView>
-            )
-          )
-        )}
+        listing.facets.map((facet: Facet) => (
+          <ExpandableView key={facet.displayName} title={facet.displayName}>
+            {facet.options
+              .slice(0, showMore[facet.identifier] ? facet.options.length : 5)
+              .map((option: Option) => (
+                <div
+                  key={option.identifier}
+                  className="flex items-center justify-between"
+                >
+                  <span className="text-black text-sm">
+                    {facet.displayName === "Price"
+                      ? "£" + option.displayValue
+                      : option.displayValue}
+                  </span>
+                  <Checkbox
+                    onChange={(event) => handleSelection(event, option, facet)}
+                  />
+                </div>
+              ))}
+            {facet.options.length > 5 && (
+              <div className="text-black bg-gray-200 font-bold p-2 text-center">
+                <button onClick={() => toggleShowMore(facet.identifier)}>
+                  {showMore[facet.identifier] ? "Show Less" : "Show More"}
+                </button>
+              </div>
+            )}
+          </ExpandableView>
+        ))}
     </div>
   );
 }

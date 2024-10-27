@@ -1,5 +1,5 @@
 import Axios from "axios";
-
+import { getListingTypes } from "./src/types";
 export const API = Axios.create({
   baseURL:
     "https://spanishinquisition.victorianplumbing.co.uk/interviews/listings?apikey=yj2bV48J40KsBpIMLvrZZ1j1KwxN4u3A83H8IBvI",
@@ -8,18 +8,7 @@ export const API = Axios.create({
   },
 });
 
-interface Listing {
-  body: {
-    query: String;
-    pageNumber: Number;
-    size: Number;
-    additionalPages: Number;
-    sort: Number;
-    facets: any;
-  };
-}
-
-export const getListing = async ({ body }: Listing) => {
+export const getListing = async ({ body }: { body: getListingTypes }) => {
   const { query, pageNumber, size, additionalPages, sort, facets } = body;
 
   const data = {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useGetListing } from "../queryHooks/listings";
 import { ProductType } from "../types";
 import ListingCard from "../components/ListingCard";
@@ -29,7 +28,6 @@ export default function Toilets() {
   if (!listing) {
     return <LoadingPage />;
   }
-  console.log(listing);
   return (
     <div className="mt-14 pb-14">
       <div className={`flex flex-row align-middle gap-4`}>

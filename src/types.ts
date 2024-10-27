@@ -25,7 +25,7 @@ interface Image {
   priority: number;
   isDefault: boolean;
   attributes: {
-    [key: string]: any;
+    imageAltText: string;
   };
 }
 
@@ -97,4 +97,13 @@ export type Facet = {
   priority: number;
   options: Option[];
   facetType: number;
+};
+
+export type getListingTypes = {
+  query: string;
+  pageNumber: number;
+  sort: string;
+  additionalPages: number;
+  facets: Facet[];
+  size: number;
 };
