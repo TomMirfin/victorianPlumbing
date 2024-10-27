@@ -1,9 +1,10 @@
 # Tom Mirfin Grid Task
 
+## - Entry to the app is via localhost/toilets
+
 ### Starting the project
 
 - npm run dev to start the server
-- Entry to the app is via localhost/toilets
 
 ### Tech stack used:
 
