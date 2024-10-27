@@ -1,18 +1,19 @@
-\***_ Tom Mirfin Grid Task _**
+# Tom Mirfin Grid Task
 
-Tech stack used:
+### Tech stack used:
+- **React**
+- **Tailwind**
+- **Zustand**
+- **Tanstack Query**
+- **Axios**
 
-- React
-- Tailwind
-- Zustand
-- Tanstack Query
-- Axios
+---
 
-** Tailwind **
-I used tailwind for ease of use on a growing project. In a live project situatuion I would set up custom components for ease of use
+### Tailwind  
+I used Tailwind for ease of use on a growing project. In a live project situation, I would set up custom components for consistency and maintainability.
 
-** Zustand **
-As the project grows using a state management system would ensure the codebase was kept clean and would stop prop drilling
+### Zustand  
+As the project grows, using a state management system like Zustand would ensure a clean codebase and prevent excessive prop drilling.
 
-** Tanstack Query **
-Not used to its full effect here but as the project developed the caching and optimistic rendering options in tanstack would support the growth
+### Tanstack Query  
+Though not fully utilized here, Tanstack Query’s caching and optimistic rendering features would be beneficial as the project scales.
