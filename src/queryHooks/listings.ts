@@ -2,15 +2,17 @@ import { useMutation } from "@tanstack/react-query";
 import { getListing } from "../../API";
 import { useSearchStore } from "./searchStore";
 import { getListingTypes } from "../types";
+import { useSearchParams } from "react-router-dom";
 
 export const useGetListing = () => {
+  const [searchParams] = useSearchParams();
   const searchStore = useSearchStore();
   const data = {
     query: searchStore.query,
     pageNumber: searchStore.pageNumber,
     size: searchStore.size,
     additionalPages: searchStore.additionalPages,
-    sort: +searchStore.sort,
+    sort: +searchParams.get("sort"),
     facets: searchStore.facetSearch,
   };
   const {

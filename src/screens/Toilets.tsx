@@ -6,15 +6,17 @@ import SortByComponent from "../components/SortByComponent";
 import PageSelector from "../components/PageSelector";
 import LoadingPage from "../components/LoadingPage";
 import { useSearchStore } from "../queryHooks/searchStore";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 export default function Toilets() {
   const { mutate: searchListing, listing } = useGetListing();
   const searchStore = useSearchStore();
   const location = useLocation();
-  console.log(location, "location");
+
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const handleSelectChange = (e: { value: string; label: string }) => {
+    setSearchParams({ sort: e.value });
     searchStore.setSort(e.value);
   };
 
@@ -29,7 +31,7 @@ export default function Toilets() {
     searchStore.query,
     searchStore.pageNumber,
   ]);
-
+  console.log(listing, "listing");
   if (!listing) {
     return <LoadingPage />;
   }

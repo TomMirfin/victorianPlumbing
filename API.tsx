@@ -22,7 +22,6 @@ export const getListing = async ({ body }: { body: getListingTypes }) => {
 
   try {
     const response = await API.post("", data);
-
     return response.data;
   } catch (error) {
     console.error(error);

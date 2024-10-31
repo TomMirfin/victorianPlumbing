@@ -36,15 +36,22 @@ export default function FilterComponent() {
       };
       setFacetSearch(query);
     } else {
+      // Copy the facetSearch object to not mutate the original object
       const updatedSearch = { ...facetSearch };
+      // Delete the selected option from the facetSearch object
       delete updatedSearch[identifier];
+      // Update the facetSearch object
       setFacetSearch(updatedSearch);
     }
   };
 
   const toggleShowMore = (facetId: string) => {
+    console.log(facetId);
+    // Toggle the showMore state for the selected facet
+
     setShowMore((prevShowMore) => ({
       ...prevShowMore,
+      // Toggle the showMore state for the selected facet by using the previous state
       [facetId]: !prevShowMore[facetId],
     }));
   };
@@ -55,6 +62,7 @@ export default function FilterComponent() {
         listing.facets.map((facet: Facet) => (
           <ExpandableView key={facet.displayName} title={facet.displayName}>
             {facet.options
+              // if showMore is true, show all options, else show only 5
               .slice(0, showMore[facet.identifier] ? facet.options.length : 5)
               .map((option: Option) => (
                 <div
